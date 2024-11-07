@@ -1,7 +1,87 @@
+:root {
+  /* typography variable begins here */
+  --base-size: 16px;
+  --scale-factor: 1.15;
+
+  --font-h1: calc(
+    var(--base-size) * var(--scale-factor) * var(--scale-factor) *
+      var(--scale-factor)
+  );
+  --font-h2: calc(var(--base-size) * var(--scale-factor) * var(--scale-factor));
+  --font-h3: calc(var(--base-size) * var(--scale-factor));
+  --font-p: var(--base-size);
+  --font-small: calc(var(--base-size) / var(--scale-factor));
+  /* typography variable ends here */
+
+  /* color variable begins here */
+  --color-green-100: #e7fded;
+  --color-green-200: #b6fac9;
+  --color-green-300: #7ff7a1;
+  --color-green-400: #52f07f;
+  --color-green-500: #26e45c;
+  --color-green-600: #12b640;
+  --color-green-700: #028e2a;
+  --color-green-800: #00641c;
+  --color-green-900: #00340f;
+
+  --color-blue-100: #e7f0fd;
+  --color-blue-200: #b6d1fa;
+  --color-blue-300: #7faff7;
+  --color-blue-400: #5291f0;
+  --color-blue-500: #2672e4;
+  --color-blue-600: #1254b6;
+  --color-blue-700: #023a8e;
+  --color-blue-800: #002864;
+  --color-blue-900: #001534;
+
+  --color-red-100: #fde7e7;
+  --color-red-200: #fab6b6;
+  --color-red-300: #f7f7f7;
+  --color-red-400: #f05252;
+  --color-red-500: #e42626;
+  --color-red-600: #b61212;
+  --color-red-700: #8e0202;
+  --color-red-800: #640000;
+  --color-red-900: #340000;
+
+  --color-neutral-100: #f4f6fa;
+  --color-neutral-200: #c2c8d1;
+  --color-neutral-300: #8e98a7;
+  --color-neutral-400: #6a788d;
+  --color-neutral-500: #505b73;
+  --color-neutral-600: #354259;
+  --color-neutral-700: #263247;
+  --color-neutral-800: #172336;
+  --color-neutral-900: #0c1625;
+  /* color variable ends here */
+}
+
+h1 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--font-h2);
+  font-weight: 700;
+}
+h3, h4, h5, h6 {
+  font-size: var(--font-h3);
+  font-weight: 600;
+}
+p {
+  font-size: var(--font-p);
+}
+small {
+  font-size: var(--font-small);
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+
+  background-color: #fff;
+  color: #000;
 }
 
 * {
@@ -13,10 +93,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
