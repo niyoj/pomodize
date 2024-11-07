@@ -1,4 +1,11 @@
+import { Noto_Serif } from "next/font/google";
+
 import "./globals.css";
+
+const noto_serif = Noto_Serif({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Pomodoize",
@@ -28,7 +35,7 @@ export default function RootLayout({ children }) {
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
-      <body>{children}</body>
+      <body className={noto_serif.className}>{children}</body>
     </html>
   );
 }
