@@ -26,7 +26,7 @@ export default function ZenPage() {
       </div>
 
       <div className={styles["pomodoro__wrapper"]}>
-        <PomodoroTimer />
+        <PomodoroTimer audio={soundOn} />
       </div>
 
       <Link href="/pomodoro">
