@@ -1,8 +1,16 @@
-.sound_icon__wrapper {
-  position: absolute;
-  right: 1rem;
-  top: 2rem;
+.zenpage__wrapper {
+  position: relative;
+  margin: 32px;
+  margin-bottom: 0;
+  height: calc(100% - 32px);
+}
 
+.zenpage__btn_wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sound_icon__wrapper {
   width: 4rem;
   height: 4rem;
 
@@ -12,6 +20,11 @@
 
   background-color: var(--color-blue-900);
   color: white;
+}
+
+.pomodoro__wrapper {
+  margin-top: 20vh;
+  transform: translateY(-50%);
 }
 
 .exit_btn {

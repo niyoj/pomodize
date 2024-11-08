@@ -15,15 +15,19 @@ export default function ZenPage() {
   };
 
   return (
-    <>
-      <button
-        className={styles["sound_icon__wrapper"]}
-        onClick={handleSoundChange}
-      >
-        {soundOn ? <Volume2 /> : <VolumeOff />}
-      </button>
+    <div className={styles["zenpage__wrapper"]}>
+      <div className={styles["zenpage__btn_wrapper"]}>
+        <button
+          className={styles["sound_icon__wrapper"]}
+          onClick={handleSoundChange}
+        >
+          {soundOn ? <Volume2 /> : <VolumeOff />}
+        </button>
+      </div>
 
-      <PomodoroTimer />
+      <div className={styles["pomodoro__wrapper"]}>
+        <PomodoroTimer />
+      </div>
 
       <Link href="/pomodoro">
         <button className={styles["exit_btn"]}>
@@ -31,6 +35,6 @@ export default function ZenPage() {
           <small>Exit Zen Mode</small>
         </button>
       </Link>
-    </>
+    </div>
   );
 }

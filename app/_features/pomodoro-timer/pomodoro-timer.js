@@ -56,26 +56,28 @@ export function PomodoroTimer({ type = "focus", colorfull = false }) {
         <Chips>1 long break</Chips>
       </div>
 
-      <div className={styles["pomodoro__timer"]}>
-        {makeDoubleDigit(time.m)}m : {makeDoubleDigit(time.s)}s
-      </div>
+      <div className={styles["pomodoro__timer__main"]}>
+        <div className={styles["pomodoro__timer"]}>
+          {makeDoubleDigit(time.m)}m : {makeDoubleDigit(time.s)}s
+        </div>
 
-      <div className={styles["pomodoro__btn"]}>
-        {!started && (
-          <Button onClick={handleStart}>
-            Start <Play />
+        <div className={styles["pomodoro__btn"]}>
+          {!started && (
+            <Button onClick={handleStart}>
+              Start <Play />
+            </Button>
+          )}
+
+          {started && (
+            <Button onClick={handleRestart}>
+              Restart <RotateCcw />
+            </Button>
+          )}
+
+          <Button onClick={handleSkip}>
+            Skip <ChevronLast />
           </Button>
-        )}
-
-        {started && (
-          <Button onClick={handleRestart}>
-            Restart <RotateCcw />
-          </Button>
-        )}
-
-        <Button onClick={handleSkip}>
-          Skip <ChevronLast />
-        </Button>
+        </div>
       </div>
     </section>
   );
