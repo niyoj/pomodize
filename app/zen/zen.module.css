@@ -38,4 +38,5 @@
 
 .exit_btn small {
   display: block;
+  font-family: var(--font-noto);
 }

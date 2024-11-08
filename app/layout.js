@@ -1,10 +1,18 @@
-import { Noto_Serif } from "next/font/google";
+import { Noto_Serif, Lato } from "next/font/google";
 
 import "./globals.css";
 
+// importing fonts and creating variable
 const noto_serif = Noto_Serif({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-noto",
+});
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-lato",
 });
 
 export const metadata = {
@@ -35,7 +43,11 @@ export default function RootLayout({ children }) {
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
-      <body className={noto_serif.className}>{children}</body>
+      <body
+        className={`${noto_serif.className} ${lato.variable} ${noto_serif.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
