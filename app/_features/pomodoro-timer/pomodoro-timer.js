@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { RotateCcw, ChevronLast, Play } from "lucide-react";
+
 import {
   pomodoroLength,
   makeDoubleDigit,
@@ -15,7 +17,10 @@ export function PomodoroTimer({ type = "focus", colorfull = false }) {
     m: pomodoroLength[pomoType],
     s: 0,
   });
-  const [restartTimes, setRestartTimes] = useState(0); // use only for re-running useEffect
+  const [started, setStarted] = useState(false);
+
+  // reference to timer
+  const timerRef = useRef(null);
 
   useEffect(() => {
     setTime({
@@ -23,27 +28,49 @@ export function PomodoroTimer({ type = "focus", colorfull = false }) {
       s: 0,
     });
 
-    const timer = setInterval(() => {
-      // remember stale closure here
-      setTime((prevTime) => reverseTime(prevTime));
-    }, 1000);
+    if (started) {
+      timerRef.current = setInterval(() => {
+        // remember stale closure here
+        setTime((prevTime) => reverseTime(prevTime));
+      }, 1000);
+    }
 
-    return () => clearInterval(timer);
-  }, [restartTimes, pomoType]);
+    return () => clearInterval(timerRef.current);
+  }, [pomoType, started]);
 
-  const handleRestart = () => {
-    setRestartTimes((prev) => prev + 1);
-  };
+  const handleStart = () => setStarted(true);
+  const handleRestart = () => setStarted(false);
 
   const handleSkip = () => {
     setPomoType((prev) => cyclePomodoroType(prev));
+    setStarted(false);
   };
 
   return (
-    <div className={styles["pomodoro"]}>
-      {makeDoubleDigit(time.m)}m : {makeDoubleDigit(time.s)}s
-      <Button onClick={handleRestart}>Restart</Button>
-      <Button onClick={handleSkip}>Skip</Button>
-    </div>
+    <section
+      className={`${styles["pomodoro"]} ${colorfull ? styles["pomodoro--colorfull"] : ""}`}
+    >
+      <div className={styles["pomodoro__timer"]}>
+        {makeDoubleDigit(time.m)}m : {makeDoubleDigit(time.s)}s
+      </div>
+
+      <div className={styles["pomodoro__btn"]}>
+        {!started && (
+          <Button onClick={handleStart}>
+            Start <Play />
+          </Button>
+        )}
+
+        {started && (
+          <Button onClick={handleRestart}>
+            Restart <RotateCcw />
+          </Button>
+        )}
+
+        <Button onClick={handleSkip}>
+          Skip <ChevronLast />
+        </Button>
+      </div>
+    </section>
   );
 }

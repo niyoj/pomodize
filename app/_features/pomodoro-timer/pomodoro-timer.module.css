@@ -3,3 +3,7 @@
   font-family: var(--font-lato);
   font-weight: 700;
 }
+
+.pomodoro.pomodoro--colorfull {
+  color: var(--color-green-600);
+}

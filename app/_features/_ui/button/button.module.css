@@ -1,4 +1,14 @@
 .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  border-radius: 1rem;
   font-size: var(--font-p);
-  padding: calc(var(--font-p) * 0.5) var(--font-p);
+  padding: 0.5rem 1.5rem;
+
+  background-color: var(--color-blue-900);
+  color: white;
+  font-weight: 500;
 }
