@@ -7,7 +7,7 @@ import {
   reverseTime,
   cyclePomodoroType,
 } from "@/app/_lib";
-import { Button } from "@/app/_features";
+import { Button, Chips } from "@/app/_features";
 
 import styles from "./pomodoro-timer.module.css";
 
@@ -50,6 +50,12 @@ export function PomodoroTimer({ type = "focus", colorfull = false }) {
     <section
       className={`${styles["pomodoro"]} ${colorfull ? styles["pomodoro--colorfull"] : ""}`}
     >
+      <div className={styles["pomodoro__chips"]}>
+        <Chips inverse={true}>1 focus time</Chips>
+        <Chips>1 short break</Chips>
+        <Chips>1 long break</Chips>
+      </div>
+
       <div className={styles["pomodoro__timer"]}>
         {makeDoubleDigit(time.m)}m : {makeDoubleDigit(time.s)}s
       </div>
