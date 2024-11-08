@@ -52,8 +52,24 @@ export function reverseTime(time) {
  * @returns {string} The new type of pomodoro session
  * */
 export function cyclePomodoroType(current) {
-  const cycle = Object.keys(pomodoroLength);
-  const currentIndex = cycle.findIndex((item) => item === current);
+  const cycle = [
+    "focus",
+    "break",
+    "focus",
+    "break",
+    "focus",
+    "break",
+    "longBreak",
+  ];
 
-  return cycle[(currentIndex + 1) % cycle.length];
+  return cycle[(current + 1) % cycle.length];
+}
+
+/**
+ * Plays bell ring
+ * */
+export function ringBell() {
+  const bellSound = new Audio("/sounds/bell.mp3");
+  bellSound.currentTime = 0;
+  bellSound.play();
 }
