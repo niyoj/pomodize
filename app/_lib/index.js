@@ -1,1 +1,1 @@
-export { reverseTime, makeDoubleDigit } from "./pomodoro-timer.js";
+export * from "./pomodoro-timer.js";

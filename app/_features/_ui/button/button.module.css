@@ -1,0 +1,4 @@
+.button {
+  font-size: var(--font-p);
+  padding: calc(var(--font-p) * 0.5) var(--font-p);
+}

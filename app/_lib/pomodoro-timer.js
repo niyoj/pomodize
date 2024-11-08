@@ -1,3 +1,10 @@
+// initializes the initial pomodoro value
+export const pomodoroLength = {
+  focus: 25,
+  break: 5,
+  longBreak: 30,
+};
+
 /**
  * converts number to string and make every number two digit by adding zero at start
  *
@@ -35,4 +42,18 @@ export function reverseTime(time) {
   } else {
     return { m, s: s - 1 };
   }
+}
+
+/**
+ * cycles the type of pomodoro session
+ *
+ * @param {string} current - The current type of pomodoro session
+ *
+ * @returns {string} The new type of pomodoro session
+ * */
+export function cyclePomodoroType(current) {
+  const cycle = Object.keys(pomodoroLength);
+  const currentIndex = cycle.findIndex((item) => item === current);
+
+  return cycle[(currentIndex + 1) % cycle.length];
 }
