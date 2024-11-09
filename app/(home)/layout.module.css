@@ -1,0 +1,26 @@
+.homepage__wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr;
+}
+
+.homepage__content {
+  position: relative;
+  padding: 2rem;
+}
+
+.navbar__wrapper {
+  width: 100%;
+}
+
+.zen_fab {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+
+  padding: 0.8rem;
+  background-color: var(--color-green-600);
+  color: white;
+  border-radius: 1rem;
+}
