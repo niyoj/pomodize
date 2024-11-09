@@ -57,7 +57,7 @@ export function PomodoroTimer({
     if (state.started) {
       timerRef.current = setInterval(() => {
         dispatch({ type: "UPDATE" });
-      }, 1);
+      }, 1000);
     }
 
     return () => clearInterval(timerRef.current);
