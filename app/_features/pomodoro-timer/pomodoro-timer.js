@@ -3,7 +3,12 @@
 import { useEffect, useRef, useReducer } from "react";
 import { RotateCcw, ChevronLast, Play } from "lucide-react";
 
-import { makeDoubleDigit, pomodoroReducer } from "@/app/_lib";
+import {
+  makeDoubleDigit,
+  pomodoroReducer,
+  pomodoroLength,
+  diffPercentage,
+} from "@/app/_lib";
 import { Button, Chips } from "@/app/_features";
 
 import styles from "./pomodoro-timer.module.css";
@@ -22,6 +27,7 @@ const initialState = {
   },
   started: false,
   audio: true,
+  onChange: () => { },
 };
 
 const chipsTypes = [
@@ -30,8 +36,17 @@ const chipsTypes = [
   { name: "longBreak", displayName: "long break" },
 ];
 
-export function PomodoroTimer({ colorfull = false, audio = true }) {
-  const [state, dispatch] = useReducer(pomodoroReducer, initialState);
+// onOneCycle means on complete of entire one pomodoro cycle
+// onOneInterval means on complete of one focus time and one break
+export function PomodoroTimer({
+  colorfull = false,
+  audio = true,
+  onChange = () => { },
+}) {
+  const [state, dispatch] = useReducer(pomodoroReducer, {
+    ...initialState,
+    onChange,
+  });
 
   // reference to timer
   const timerRef = useRef(null);
@@ -42,11 +57,19 @@ export function PomodoroTimer({ colorfull = false, audio = true }) {
     if (state.started) {
       timerRef.current = setInterval(() => {
         dispatch({ type: "UPDATE" });
-      }, 10);
+      }, 1);
     }
 
     return () => clearInterval(timerRef.current);
   }, [state.started, audio]);
+
+  // when time has changed then trigger onChange: UPLIFTING THE STATE
+  useEffect(() => {
+    onChange(
+      state.session,
+      diffPercentage(state.time, { m: pomodoroLength[state.session], s: 0 }),
+    );
+  }, [state.time]);
 
   const handleStart = () => dispatch({ type: "START" });
   const handleRestart = () => dispatch({ type: "RESTART" });

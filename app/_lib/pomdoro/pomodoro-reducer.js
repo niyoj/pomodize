@@ -18,20 +18,24 @@ export const pomodoroReducer = (state, action) => {
         state.audio && ringBell();
 
         // pause timer
-        state.started = false;
         // increase session chips info
-        state.sessionInfo[state.session] += 1;
         // find next session type
-        state.session = cyclePomodoroType(state.iteration);
         // increment number of sessions
-        state.iteration += 1;
         // find new time
-        state.time = {
-          m: pomodoroLength[state.session],
-          s: 0,
+        return {
+          ...state,
+          started: false,
+          sessionInfo: {
+            ...state.sessionInfo,
+            [state.session]: state.sessionInfo[state.session] + 1,
+          },
+          session: cyclePomodoroType(state.iteration),
+          iteration: state.iteration + 1,
+          time: {
+            m: pomodoroLength[cyclePomodoroType(state.iteration)],
+            s: 0,
+          },
         };
-
-        return { ...state };
       }
 
       return { ...state, time: updatedTime };
@@ -46,6 +50,7 @@ export const pomodoroReducer = (state, action) => {
 
     case "SKIP":
       state.audio && ringBell();
+
       // increase the iteration by one unit, update session type, and time accordingly
       return {
         ...state,
