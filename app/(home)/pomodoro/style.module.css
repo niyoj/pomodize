@@ -1,0 +1,11 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

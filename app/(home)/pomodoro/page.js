@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { PomodoroTimer, PomodoroDetails } from "@/app/_features";
+import { PomodoroTimer, PomodoroDetails, TasksCard } from "@/app/_features";
 import { cyclePomodoroType } from "@/app/_lib";
+
+import styles from "./style.module.css";
 
 const getCurrentCycleStack = (fullStack) => {
   let lastLongBreak = fullStack.lastIndexOf("longBreak");
@@ -31,7 +33,7 @@ export default function PomodoroPage() {
   const currPomoStack = getCurrentCycleStack(pomoStack);
 
   return (
-    <>
+    <div className={styles["page"]}>
       <PomodoroTimer colorfull={true} onChange={handlePomodoroUpdate} />
       <PomodoroDetails
         cycle={
@@ -49,6 +51,28 @@ export default function PomodoroPage() {
         currPomoStack={currPomoStack}
         percentage={invPercent}
       />
-    </>
+
+      <section className={styles["page__tasks"]}>
+        <h1>Active Task</h1>
+
+        <TasksCard
+          status="inProgress"
+          title="Theory of computation"
+          description="This is a silly task and silly is love but love is blind and si it so oh my fow hello is my name name is my hello oh my god"
+        />
+
+        <small>
+          Next:{" "}
+          <span
+            style={{
+              textDecoration: "underline",
+              fontWeight: "600",
+            }}
+          >
+            Theory og superposition
+          </span>
+        </small>
+      </section>
+    </div>
   );
 }

@@ -8,6 +8,7 @@
 .homepage__content {
   position: relative;
   padding: 2rem;
+  align-self: end;
 }
 
 .navbar__wrapper {

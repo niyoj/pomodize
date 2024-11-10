@@ -1,0 +1,21 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-blue-900);
+  color: #fff;
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card > small {
+  display: block;
+  line-height: 1.25;
+  max-height: calc(1.25 * 2 * var(--font-small));
+  overflow: hidden;
+}
