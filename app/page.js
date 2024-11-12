@@ -1,5 +1,5 @@
-import styles from "./page.module.css";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <h1 className={styles["h1"]}>Homepage</h1>;
+  redirect("/pomodoro", "push");
 }

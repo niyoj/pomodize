@@ -64,7 +64,10 @@ h2 {
   font-size: var(--font-h2);
   font-weight: 700;
 }
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
   font-size: var(--font-h3);
   font-weight: 600;
 }
@@ -75,13 +78,13 @@ small {
   font-size: var(--font-small);
 }
 
-html,
 body {
-  height: 100vh;    /*fallback if svh doesn't works'*/
-  height: 100svh;   /*smallest viewport height for mobile*/
+  width: 100vw;
+  height: 100svh; /*smallest viewport height for mobile*/
+  max-height: 100vh; /*fallback for svh*/
+  max-height: 100svh;
 
-  max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
 
   background-color: #fff;
   color: #000;
@@ -100,4 +103,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
 }

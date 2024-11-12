@@ -1,0 +1,31 @@
+.pomodoro {
+  font-size: 60px;
+  font-family: var(--font-lato);
+  font-weight: 700;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pomodoro.pomodoro--colorfull {
+  color: var(--color-green-600);
+}
+
+.pomodoro__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.pomodoro__timer__main {
+}
+
+.pomodoro__btn {
+  margin-top: 2rem;
+
+  display: flex;
+  gap: 1rem;
+}
