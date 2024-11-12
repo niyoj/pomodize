@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function TasksPage() {
-  return <p>Tasks</p>;
+  redirect("/tasks/all");
 }
