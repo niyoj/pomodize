@@ -22,6 +22,10 @@
 
 .tasks__display {
   flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .page__btn_wrapper {

@@ -17,7 +17,9 @@ export default function HomepageLayout({ children }) {
         </div>
       </main>
 
-      <NavbarWrapper />
+      <div className={styles["homepage__navbar"]}>
+        <NavbarWrapper />
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Button } from "@/app/_features";
+import { Button, TasksCard } from "@/app/_features";
 
 import styles from "./style.module.css";
 
@@ -50,7 +50,33 @@ export default function TasksQueryPage({ params }) {
           ))}
         </div>
 
-        <div className={styles["tasks__display"]}>{query}</div>
+        <div className={styles["tasks__display"]}>
+          <TasksCard
+            status="inProgress"
+            title="Task 1"
+            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
+          />
+          <TasksCard
+            status="completed"
+            title="Task 2"
+            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
+          />
+          <TasksCard
+            status="pending"
+            title="Task 3"
+            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
+          />
+          <TasksCard
+            status="pending"
+            title="Task 4"
+            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
+          />
+          <TasksCard
+            status="pending"
+            title="Task 5"
+            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
+          />
+        </div>
 
         <div className={styles["page__btn_wrapper"]}>
           <Link href="/tasks/add">
