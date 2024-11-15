@@ -26,26 +26,36 @@ const getTaskByType = (type) => {
   };
 
   if (!map) throw new Error("Invalid task type passed");
-  return map[type]();
+  return map[type];
 };
 
 export default function TasksQueryPage({ params }) {
   const [query, setQuery] = useState(null);
+  const [tasks, setTasks] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    async function checkQuery() {
+    async function checkQueryAndFetchTask() {
       const userQuery = (await params).query;
 
       if (!["all", "pending", "completed"].includes(userQuery)) {
         router.replace("/tasks/all");
       } else {
         setQuery(userQuery);
+
+        // get tasks
+        const tasks = await getTaskByType(userQuery)();
+        setTasks(tasks);
       }
     }
 
-    checkQuery();
-  }, []);
+    checkQueryAndFetchTask();
+  }, [refresh]);
+
+  const handleTaskChange = () => {
+    setRefresh((prev) => !prev);
+  };
 
   return (
     <>
@@ -63,14 +73,17 @@ export default function TasksQueryPage({ params }) {
         </div>
 
         <div className={styles["tasks__display"]}>
-          {query && getTaskByType(query).map((task, index) => (
-            <TasksCard
-              key={index}
-              title={task.title}
-              status={task.status}
-              description={task.description}
-            />
-          ))}
+          {tasks &&
+            tasks.map((task, index) => (
+              <TasksCard
+                key={index}
+                id={task.id}
+                title={task.title}
+                status={task.status}
+                description={task.description}
+                onChange={handleTaskChange}
+              />
+            ))}
         </div>
 
         <div className={styles["page__btn_wrapper"]}>

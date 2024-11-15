@@ -31,8 +31,12 @@ export default function PomodoroPage() {
   const [showTaskSelector, setShowTaskSelector] = useState(false);
 
   useEffect(() => {
-    setInProgressTask(getInProgressTask);
-  }, [pomoStack]);
+    const setProgressTask = async () => {
+      setInProgressTask(await getInProgressTask());
+    };
+
+    setProgressTask();
+  }, [pomoStack, showTaskSelector]);
 
   const handlePomodoroUpdate = (sessionName, percentage) => {
     // since pommodoro is reverse counting we do 100 - percentage
@@ -71,6 +75,7 @@ export default function PomodoroPage() {
 
         {inProgressTask ? (
           <TasksCard
+            id={inProgressTask.id}
             status={inProgressTask.status}
             title={inProgressTask.title}
             description={inProgressTask.description}

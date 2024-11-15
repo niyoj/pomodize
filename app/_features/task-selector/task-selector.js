@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, SquareCheckBig } from "lucide-react";
 
 import { getPendingTasks, selectInProgressTask } from "@/app/_lib";
@@ -8,11 +8,20 @@ import styles from "./task-selector.module.css";
 
 export function TaskSelector({ onClose }) {
   const [selectedTask, setSelectedTask] = useState(null);
-  
-  const handleFormSubmit = (event) => {
+  const [pendingTasks, setPendingTasks] = useState(null);
+
+  useEffect(() => {
+    const fetchFromIDB = async () => {
+      setPendingTasks(await getPendingTasks());
+    };
+
+    fetchFromIDB();
+  }, []);
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    selectInProgressTask(selectedTask);
-    
+    await selectInProgressTask(selectedTask);
+
     onClose();
   };
 
@@ -28,18 +37,22 @@ export function TaskSelector({ onClose }) {
 
         <div className={styles["selector__options"]}>
           <form onSubmit={handleFormSubmit}>
-            {getPendingTasks().map((item, index) => (
-              <div className={styles["selector__options__option"]} key={index}>
-                <label key={index}>
-                  <input
-                    type="radio"
-                    name="task"
-                    onChange={setSelectedTask.bind(null, item.id)}
-                  />
-                  <span>{item.title}</span>
-                </label>
-              </div>
-            ))}
+            {pendingTasks &&
+              pendingTasks.map((item, index) => (
+                <div
+                  className={styles["selector__options__option"]}
+                  key={index}
+                >
+                  <label key={index}>
+                    <input
+                      type="radio"
+                      name="task"
+                      onChange={setSelectedTask.bind(null, item.id)}
+                    />
+                    <span>{item.title}</span>
+                  </label>
+                </div>
+              ))}
             <div className={styles["selector__options__btn_wrapper"]}>
               <Button
                 style={{ backgroundColor: "var(--color-green-600)" }}
