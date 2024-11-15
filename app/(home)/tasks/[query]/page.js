@@ -5,7 +5,8 @@ import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Button } from "@/app/_features";
+import { Button, TasksCard } from "@/app/_features";
+import { getAllTasks, getPendingTasks, getCompletedTasks } from "@/app/_lib";
 
 import styles from "./style.module.css";
 
@@ -15,6 +16,17 @@ const getFilterItems = () => {
     pending: "pending",
     completed: "completed",
   };
+};
+
+const getTaskByType = (type) => {
+  const map = {
+    all: getAllTasks,
+    pending: getPendingTasks,
+    completed: getCompletedTasks,
+  };
+
+  if (!map) throw new Error("Invalid task type passed");
+  return map[type]();
 };
 
 export default function TasksQueryPage({ params }) {
@@ -50,7 +62,16 @@ export default function TasksQueryPage({ params }) {
           ))}
         </div>
 
-        <div className={styles["tasks__display"]}>{query}</div>
+        <div className={styles["tasks__display"]}>
+          {query && getTaskByType(query).map((task, index) => (
+            <TasksCard
+              key={index}
+              title={task.title}
+              status={task.status}
+              description={task.description}
+            />
+          ))}
+        </div>
 
         <div className={styles["page__btn_wrapper"]}>
           <Link href="/tasks/add">

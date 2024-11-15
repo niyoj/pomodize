@@ -1,8 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { PomodoroTimer, PomodoroDetails, TasksCard } from "@/app/_features";
-import { cyclePomodoroType } from "@/app/_lib";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Blocks } from "lucide-react";
+import {
+  PomodoroTimer,
+  PomodoroDetails,
+  TasksCard,
+  Button,
+  TaskSelector,
+} from "@/app/_features";
+import { cyclePomodoroType, getInProgressTask } from "@/app/_lib";
 
 import styles from "./style.module.css";
 
@@ -19,6 +27,12 @@ const getCurrentCycleStack = (fullStack) => {
 export default function PomodoroPage() {
   const [pomoStack, setPomoStack] = useState(["focus"]);
   const [invPercent, setInvPercent] = useState(0);
+  const [inProgressTask, setInProgressTask] = useState(null);
+  const [showTaskSelector, setShowTaskSelector] = useState(false);
+
+  useEffect(() => {
+    setInProgressTask(getInProgressTask);
+  }, [pomoStack]);
 
   const handlePomodoroUpdate = (sessionName, percentage) => {
     // since pommodoro is reverse counting we do 100 - percentage
@@ -55,11 +69,30 @@ export default function PomodoroPage() {
       <section className={styles["page__tasks"]}>
         <h1>Active Task</h1>
 
-        <TasksCard
-          status="inProgress"
-          title="Theory of computation"
-          description="This is a silly task and silly is love but love is blind and si it so oh my fow hello is my name name is my hello oh my god"
-        />
+        {inProgressTask ? (
+          <TasksCard
+            status={inProgressTask.status}
+            title={inProgressTask.title}
+            description={inProgressTask.description}
+          />
+        ) : (
+          <div className={styles["page__tasks__select"]}>
+            <Button
+              style={{ backgroundColor: "var(--color-green-700)" }}
+              onClick={setShowTaskSelector.bind(null, true)}
+            >
+              Choose a new task <Blocks />
+            </Button>
+
+            {showTaskSelector &&
+              createPortal(
+                <TaskSelector
+                  onClose={setShowTaskSelector.bind(null, false)}
+                />,
+                document.body,
+              )}
+          </div>
+        )}
 
         <small>
           Next:{" "}
