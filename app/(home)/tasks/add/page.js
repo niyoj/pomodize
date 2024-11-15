@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { addTask } from "@/app/_lib";
+import { createNewTask } from "@/app/_lib";
 import { Button } from "@/app/_features";
 
 import styles from "./style.module.css";
@@ -11,6 +12,7 @@ import styles from "./style.module.css";
 export default function AddTasksPage() {
   const [taskName, setTaskName] = useState(null);
   const [description, setDescription] = useState(null);
+  const router = useRouter();
 
   const handleInputChange = (name, event) => {
     if (name === "taskName") {
@@ -22,8 +24,8 @@ export default function AddTasksPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    await addTask(taskName, description);
+    await createNewTask(taskName, description);
+    router.push("/tasks/all");
   };
 
   return (
@@ -46,6 +48,7 @@ export default function AddTasksPage() {
           maxLength="120"
           placeholder="I have to ..."
           rows={2}
+          onChange={handleInputChange.bind(null, "description")}
         />
       </div>
 

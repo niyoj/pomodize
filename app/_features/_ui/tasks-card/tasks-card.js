@@ -1,7 +1,6 @@
-import { Trash2, CheckCheck, CirclePause } from "lucide-react";
+import { Trash2, CheckCheck } from "lucide-react";
 
 import styles from "./tasks-card.module.css";
-import { getDisplayName } from "next/dist/shared/lib/utils";
 
 const statuses = [
   {

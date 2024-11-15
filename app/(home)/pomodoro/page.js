@@ -31,7 +31,11 @@ export default function PomodoroPage() {
   const [showTaskSelector, setShowTaskSelector] = useState(false);
 
   useEffect(() => {
-    setInProgressTask(getInProgressTask);
+    const setProgressTask = async () => {
+      setInProgressTask(await getInProgressTask());
+    };
+
+    setProgressTask();
   }, [pomoStack]);
 
   const handlePomodoroUpdate = (sessionName, percentage) => {
