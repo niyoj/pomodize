@@ -36,7 +36,7 @@ export default function PomodoroPage() {
     };
 
     setProgressTask();
-  }, [pomoStack]);
+  }, [pomoStack, showTaskSelector]);
 
   const handlePomodoroUpdate = (sessionName, percentage) => {
     // since pommodoro is reverse counting we do 100 - percentage
