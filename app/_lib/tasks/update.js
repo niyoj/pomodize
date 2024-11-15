@@ -15,3 +15,20 @@ export async function selectInProgressTask(taskID) {
   await store.put(task);
   await tx.done;
 }
+
+export async function deleteTask(taskID) {
+  const db = await IDB;
+  await db.delete("tasks", taskID);
+}
+
+export async function markTaskComplete(taskID) {
+  const db = await IDB;
+  const tx = db.transaction("tasks", "readwrite");
+  const store = tx.objectStore("tasks");
+
+  const task = await store.get(taskID);
+  task.status = "completed";
+
+  await store.put(task);
+  await tx.done;
+}

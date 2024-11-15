@@ -1,6 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Trash2, CheckCheck } from "lucide-react";
 
 import styles from "./tasks-card.module.css";
+import { deleteTask, markTaskComplete } from "@/app/_lib/tasks/update";
 
 const statuses = [
   {
@@ -22,23 +26,25 @@ const statuses = [
 ];
 
 const getTaskStatuses = () => statuses.map((item) => item.name);
-const promoteTask = (task) => {
-  const taskStatuses = getTaskStatuses();
-  const taskIndex = taskStatuses().indexOf(task);
-
-  if (taskIndex === taskStatuses.length - 1) {
-    return task;
-  }
-  return taskStatuses[taskIndex + 1];
-};
 const getTaskStatus = (name) => statuses.find((item) => item.name === name);
 
 export function TasksCard({
+  id,
   status = getTaskStatuses[0],
   title = "Task",
   description = "",
+  onChange = () => {},
 }) {
   const taskStatus = getTaskStatus(status);
+
+  const handleTaskButton = async () => {
+    if (status === "inProgress") {
+      await markTaskComplete(id);
+    } else if (status === "pending") {
+      await deleteTask(id);
+    }
+    onChange();
+  };
 
   return (
     <div className={styles["card"]}>
@@ -58,7 +64,12 @@ export function TasksCard({
           <span>{title}</span>
         </p>
 
-        <taskStatus.icon height="1rem" color={taskStatus.color} />
+        <button
+          style={{ background: "transparent" }}
+          onClick={handleTaskButton}
+        >
+          <taskStatus.icon height="1rem" color={taskStatus.color} />
+        </button>
       </div>
       <small>{description}</small>
     </div>

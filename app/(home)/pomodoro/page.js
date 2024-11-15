@@ -75,6 +75,7 @@ export default function PomodoroPage() {
 
         {inProgressTask ? (
           <TasksCard
+            id={inProgressTask.id}
             status={inProgressTask.status}
             title={inProgressTask.title}
             description={inProgressTask.description}

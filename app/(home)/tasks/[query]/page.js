@@ -32,6 +32,7 @@ const getTaskByType = (type) => {
 export default function TasksQueryPage({ params }) {
   const [query, setQuery] = useState(null);
   const [tasks, setTasks] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -50,7 +51,11 @@ export default function TasksQueryPage({ params }) {
     }
 
     checkQueryAndFetchTask();
-  }, []);
+  }, [refresh]);
+
+  const handleTaskChange = () => {
+    setRefresh((prev) => !prev);
+  };
 
   return (
     <>
@@ -72,9 +77,11 @@ export default function TasksQueryPage({ params }) {
             tasks.map((task, index) => (
               <TasksCard
                 key={index}
+                id={task.id}
                 title={task.title}
                 status={task.status}
                 description={task.description}
+                onChange={handleTaskChange}
               />
             ))}
         </div>
