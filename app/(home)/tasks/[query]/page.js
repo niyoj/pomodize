@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button, TasksCard } from "@/app/_features";
+import { getAllTasks, getPendingTasks, getCompletedTasks } from "@/app/_lib";
 
 import styles from "./style.module.css";
 
@@ -15,6 +16,17 @@ const getFilterItems = () => {
     pending: "pending",
     completed: "completed",
   };
+};
+
+const getTaskByType = (type) => {
+  const map = {
+    all: getAllTasks,
+    pending: getPendingTasks,
+    completed: getCompletedTasks,
+  };
+
+  if (!map) throw new Error("Invalid task type passed");
+  return map[type]();
 };
 
 export default function TasksQueryPage({ params }) {
@@ -51,31 +63,14 @@ export default function TasksQueryPage({ params }) {
         </div>
 
         <div className={styles["tasks__display"]}>
-          <TasksCard
-            status="inProgress"
-            title="Task 1"
-            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
-          />
-          <TasksCard
-            status="completed"
-            title="Task 2"
-            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
-          />
-          <TasksCard
-            status="pending"
-            title="Task 3"
-            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
-          />
-          <TasksCard
-            status="pending"
-            title="Task 4"
-            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
-          />
-          <TasksCard
-            status="pending"
-            title="Task 5"
-            description="Lorem ipsum dolor amit lorem ipsum dolor amit lorem ipsum dolor amit lorem impsum dolor amit lorem ipsum dolor amit lorem ipsum."
-          />
+          {query && getTaskByType(query).map((task, index) => (
+            <TasksCard
+              key={index}
+              title={task.title}
+              status={task.status}
+              description={task.description}
+            />
+          ))}
         </div>
 
         <div className={styles["page__btn_wrapper"]}>

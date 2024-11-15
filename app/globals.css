@@ -110,3 +110,20 @@ button {
   border: none;
   cursor: pointer;
 }
+
+/* styling scrollbar */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  padding: 3px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-200);
+
+}
