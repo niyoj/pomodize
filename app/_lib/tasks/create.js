@@ -8,6 +8,6 @@ export async function createNewTask(title, description) {
     description,
   };
 
-  const db = await IDB;
+  const db = await IDB();
   await db.add("tasks", task);
 }

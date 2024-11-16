@@ -5,7 +5,7 @@ export async function selectInProgressTask(taskID) {
   if (await getInProgressTask())
     throw new Error("Previous in progress task is not completed");
 
-  const db = await IDB;
+  const db = await IDB();
   const tx = db.transaction("tasks", "readwrite");
   const store = tx.objectStore("tasks");
 
@@ -17,12 +17,12 @@ export async function selectInProgressTask(taskID) {
 }
 
 export async function deleteTask(taskID) {
-  const db = await IDB;
+  const db = await IDB();
   await db.delete("tasks", taskID);
 }
 
 export async function markTaskComplete(taskID) {
-  const db = await IDB;
+  const db = await IDB();
   const tx = db.transaction("tasks", "readwrite");
   const store = tx.objectStore("tasks");
 
