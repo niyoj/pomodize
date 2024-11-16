@@ -1,7 +1,7 @@
 import { IDB } from "./store";
 
 export async function getAllTasks() {
-  const db = await IDB;
+  const db = await IDB();
   const tasks = await db.getAll("tasks");
 
   return tasks;
