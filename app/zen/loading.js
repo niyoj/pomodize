@@ -23,6 +23,7 @@ export default function LoadingUI() {
       <div
         style={{
           width: 400,
+          maxWidth: "calc(100vw - 2 * 32px)",
           height: 200,
           background: "var(--color-neutral-200)",
           marginTop: 100,

@@ -55,6 +55,21 @@ export function TaskSelector({ onClose }) {
                   </label>
                 </div>
               ))}
+
+            {pendingTasks && pendingTasks.length === 0 && (
+              <p
+                style={{
+                  textAlign: "center",
+                  color: "var(--color-neutral-400)",
+                  fontWeight: 700,
+                  fontSize: "var(--font-h3)",
+                  padding: "2rem 0",
+                }}
+              >
+                All pending tasks are now complete. Please create a new task to
+                continue
+              </p>
+            )}
             <div className={styles["selector__options__btn_wrapper"]}>
               <Button
                 style={{ backgroundColor: "var(--color-green-600)" }}
