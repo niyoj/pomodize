@@ -7,7 +7,7 @@ const navItems = [
   { name: "pomodoro", icon: Hourglass },
   { name: "time tools", icon: Timer, pathname: "time-tools" },
   { name: "tasks", icon: FileCheck },
-  { name: "statistics", icon: TrendingUp },
+  // { name: "statistics", icon: TrendingUp },
 ];
 
 export function Navbar({ active }) {

@@ -125,5 +125,13 @@ button {
 /* Style the scrollbar thumb (the draggable part) */
 *::-webkit-scrollbar-thumb {
   background-color: var(--color-neutral-200);
+}
 
+@keyframes blink {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.9;
+  }
 }
