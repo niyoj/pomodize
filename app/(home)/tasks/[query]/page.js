@@ -84,6 +84,11 @@ export default function TasksQueryPage({ params }) {
                 onChange={handleTaskChange}
               />
             ))}
+          {tasks && tasks.length === 0 && (
+            <div className={styles["tasks__display--no"]}>
+              <p>No tasks to display</p>
+            </div>
+          )}
         </div>
 
         <div className={styles["page__btn_wrapper"]}>

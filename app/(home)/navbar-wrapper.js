@@ -6,10 +6,12 @@ import { Navbar } from "@/app/_features";
 import styles from "./layout.module.css";
 
 export default function NavbarWrapper() {
-  const pathname = usePathname().slice(1); // removes the first slash character
+  const fullPath = usePathname();
+  const rootSegment = fullPath.split("/")[1];
+
   return (
     <div className={styles["navbar__wrapper"]}>
-      <Navbar active={pathname} />
+      <Navbar active={rootSegment} />
     </div>
   );
 }

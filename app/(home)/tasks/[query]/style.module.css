@@ -33,6 +33,17 @@
   padding-right: 2px; /*for gap between content and scrolbar*/
 }
 
+.tasks__display--no {
+  text-align: center;
+}
+
+.tasks__display--no p {
+  margin-top: 100px;
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--color-neutral-400);
+}
+
 .page__btn_wrapper {
   display: flex;
   justify-content: center;

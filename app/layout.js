@@ -40,7 +40,8 @@ export default function RootLayout({ children }) {
           sizes="16x16"
           href="/favicon/favicon-16x16.png"
         />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link rel="manifest" href="/favicon/manifest.json" />
+        <meta name="theme-color" content="#7ff7a1" />
       </head>
       <body
         className={`${dm_sans.className} ${lato.variable} ${dm_sans.variable}`}
