@@ -98,18 +98,6 @@ export default function PomodoroPage() {
               )}
           </div>
         )}
-
-        <small>
-          Next:{" "}
-          <span
-            style={{
-              textDecoration: "underline",
-              fontWeight: "600",
-            }}
-          >
-            Theory og superposition
-          </span>
-        </small>
       </section>
     </div>
   );
