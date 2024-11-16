@@ -31,8 +31,7 @@
   ],
   "theme_color": "#7ff7a1",
   "background_color": "#ffffff",
-  "display_override": ["fullscreen", "minimal-ui"],
-  "display": "standalone",
+  "display": "minimal-ui",
   "start_url": "https://pomodize.vercel.app/pomodoro",
   "scope": "/",
   "shortcuts": [
