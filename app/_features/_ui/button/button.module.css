@@ -10,5 +10,6 @@
 
   background-color: var(--color-blue-900);
   color: white;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-lato);
 }

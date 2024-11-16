@@ -1,8 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { PomodoroTimer, PomodoroDetails } from "@/app/_features";
-import { cyclePomodoroType } from "@/app/_lib";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Blocks } from "lucide-react";
+import {
+  PomodoroTimer,
+  PomodoroDetails,
+  TasksCard,
+  Button,
+  TaskSelector,
+} from "@/app/_features";
+import { cyclePomodoroType, getInProgressTask } from "@/app/_lib";
+
+import styles from "./style.module.css";
 
 const getCurrentCycleStack = (fullStack) => {
   let lastLongBreak = fullStack.lastIndexOf("longBreak");
@@ -17,6 +27,16 @@ const getCurrentCycleStack = (fullStack) => {
 export default function PomodoroPage() {
   const [pomoStack, setPomoStack] = useState(["focus"]);
   const [invPercent, setInvPercent] = useState(0);
+  const [inProgressTask, setInProgressTask] = useState(null);
+  const [showTaskSelector, setShowTaskSelector] = useState(false);
+
+  useEffect(() => {
+    const setProgressTask = async () => {
+      setInProgressTask(await getInProgressTask());
+    };
+
+    setProgressTask();
+  }, [pomoStack, showTaskSelector]);
 
   const handlePomodoroUpdate = (sessionName, percentage) => {
     // since pommodoro is reverse counting we do 100 - percentage
@@ -31,7 +51,7 @@ export default function PomodoroPage() {
   const currPomoStack = getCurrentCycleStack(pomoStack);
 
   return (
-    <>
+    <div className={styles["page"]}>
       <PomodoroTimer colorfull={true} onChange={handlePomodoroUpdate} />
       <PomodoroDetails
         cycle={
@@ -49,6 +69,36 @@ export default function PomodoroPage() {
         currPomoStack={currPomoStack}
         percentage={invPercent}
       />
-    </>
+
+      <section className={styles["page__tasks"]}>
+        <h1>Active Task</h1>
+
+        {inProgressTask ? (
+          <TasksCard
+            id={inProgressTask.id}
+            status={inProgressTask.status}
+            title={inProgressTask.title}
+            description={inProgressTask.description}
+          />
+        ) : (
+          <div className={styles["page__tasks__select"]}>
+            <Button
+              style={{ backgroundColor: "var(--color-green-700)" }}
+              onClick={setShowTaskSelector.bind(null, true)}
+            >
+              Choose a new task <Blocks />
+            </Button>
+
+            {showTaskSelector &&
+              createPortal(
+                <TaskSelector
+                  onClose={setShowTaskSelector.bind(null, false)}
+                />,
+                document.body,
+              )}
+          </div>
+        )}
+      </section>
+    </div>
   );
 }

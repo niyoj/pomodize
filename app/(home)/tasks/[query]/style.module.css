@@ -1,0 +1,39 @@
+.tasks {
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto;
+  flex-direction: column;
+  gap: 1rem;
+
+  overflow: hidden;
+}
+
+.tasks__filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter__item {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.filter__item.filter__item--active {
+  color: var(--color-green-600);
+  border-bottom: 2px solid var(--color-green-600);
+}
+
+.tasks__display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  padding-right: 2px; /*for gap between content and scrolbar*/
+}
+
+.page__btn_wrapper {
+  display: flex;
+  justify-content: center;
+}

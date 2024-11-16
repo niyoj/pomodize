@@ -1,4 +1,4 @@
-import { Link } from "next/navigation";
+import Link from "next/link";
 import { Hourglass, Timer, FileCheck, TrendingUp } from "lucide-react";
 import styles from "./navbar.module.css";
 
@@ -7,7 +7,7 @@ const navItems = [
   { name: "pomodoro", icon: Hourglass },
   { name: "time tools", icon: Timer, pathname: "time-tools" },
   { name: "tasks", icon: FileCheck },
-  { name: "statistics", icon: TrendingUp },
+  // { name: "statistics", icon: TrendingUp },
 ];
 
 export function Navbar({ active }) {
@@ -19,7 +19,7 @@ export function Navbar({ active }) {
           const isActive = itemPath === active;
 
           return (
-            <a href={itemPath} key={index}>
+            <Link href={`/${itemPath}`} key={index}>
               <li
                 className={`${styles["navbar__item"]} ${isActive ? styles["navbar__item--active"] : ""}`}
               >
@@ -27,7 +27,7 @@ export function Navbar({ active }) {
                 <small>{item.name}</small>
                 <div className={styles["navbar__item__bulb"]} />
               </li>
-            </a>
+            </Link>
           );
         })}
       </ul>
