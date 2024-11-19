@@ -1,0 +1,7 @@
+.display {
+  font-family: var(--font-lato);
+  color: var(--color-green-600);
+  font-size: 60px;
+  font-weight: 700;
+  text-align: center;
+}

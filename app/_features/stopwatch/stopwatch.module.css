@@ -1,0 +1,11 @@
+.stopwatch {
+  margin-top: 10vh;
+}
+
+.stopwatch__btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0;
+}

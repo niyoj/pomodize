@@ -1,0 +1,19 @@
+.table {
+  color: var(--color-neutral-400);
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead td {
+  font-weight: 700;
+  color: var(--color-neutral-300);
+  border-bottom: 1px solid var(--color-neutral-200);
+  padding: 0.8rem 0;
+}
+
+.table tbody td {
+  font-family: var(--font-lato);
+  padding-top: 0.8rem;
+}
