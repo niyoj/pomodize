@@ -111,6 +111,11 @@ button {
   cursor: pointer;
 }
 
+/*disable user selection feature*/
+* {
+  user-select: none;
+}
+
 /* styling scrollbar */
 *::-webkit-scrollbar {
   width: 6px;
