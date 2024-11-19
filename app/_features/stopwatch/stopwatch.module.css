@@ -1,5 +1,11 @@
 .stopwatch {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
   margin-top: 10vh;
+  height: calc(100% - 10vh);
+  overflow-y: hidden;
 }
 
 .stopwatch__btns {
@@ -7,5 +13,8 @@
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 2rem 0;
+}
+
+.stopwatch__table {
+  overflow-y: auto;
 }

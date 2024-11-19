@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Play, CirclePause } from "lucide-react";
+import { Play, Flag, CirclePause, TimerOff } from "lucide-react";
 
 import { Button } from "../_ui";
 import StopWatchDisplay from "./stopwatch-display/stopwatch-display";
@@ -12,28 +12,64 @@ import styles from "./stopwatch.module.css";
 export function StopWatch() {
   const [millis, setMillis] = useState(0);
   const [laps, setLaps] = useState([]);
+  const [play, setPlay] = useState(false);
+
+  const timerIntervalRef = useRef(null);
+
+  useEffect(() => {
+    timerIntervalRef.current = play
+      ? setInterval(() => {
+        setMillis((prev) => prev + 10);
+      }, 10)
+      : null;
+
+    return () => timerIntervalRef && clearInterval(timerIntervalRef.current);
+  }, [play]);
+
+  const handleStop = () => {
+    setLaps([]);
+    setMillis(0);
+    setPlay(false);
+  };
+
+  const handleLap = () => setLaps((prev) => [...prev, millis]);
 
   return (
     <section className={styles["stopwatch"]}>
-      <StopWatchDisplay millis={millis} />
+      <div className={styles["stopwatch__display"]}>
+        <StopWatchDisplay millis={millis} />
+      </div>
+
       <div className={styles["stopwatch__btns"]}>
         {millis === 0 && (
-          <Button>
+          <Button onClick={setPlay.bind(null, true)}>
             Start <Play />
           </Button>
         )}
-        {millis !== 0 && (
+        {millis !== 0 && play && (
           <>
-            <Button>
+            <Button onClick={handleLap}>
+              Lap <Flag />
+            </Button>
+            <Button onClick={setPlay.bind(null, false)}>
+              Pause <CirclePause />
+            </Button>
+          </>
+        )}
+        {millis !== 0 && !play && (
+          <>
+            <Button onClick={setPlay.bind(null, true)}>
               Resume <Play />
             </Button>
-            <Button>
-              Stop <CirclePause />
+            <Button onClick={handleStop}>
+              Stop <TimerOff />
             </Button>
           </>
         )}
       </div>
-      {millis !== 0 && <StopWatchTable data={laps} />}
+      <div className={styles["stopwatch__table"]}>
+        {millis !== 0 && <StopWatchTable data={laps} />}
+      </div>
     </section>
   );
 }
