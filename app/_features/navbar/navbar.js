@@ -19,15 +19,17 @@ export function Navbar({ active }) {
           const isActive = itemPath === active;
 
           return (
-            <Link href={`/${itemPath}`} key={index}>
-              <li
-                className={`${styles["navbar__item"]} ${isActive ? styles["navbar__item--active"] : ""}`}
-              >
-                <item.icon />
-                <small>{item.name}</small>
-                <div className={styles["navbar__item__bulb"]} />
-              </li>
-            </Link>
+            <li key={index}>
+              <Link href={`/${itemPath}`}>
+                <div
+                  className={`${styles["navbar__item"]} ${isActive ? styles["navbar__item--active"] : ""}`}
+                >
+                  <item.icon />
+                  <small>{item.name}</small>
+                  <div className={styles["navbar__item__bulb"]} />
+                </div>
+              </Link>
+            </li>
           );
         })}
       </ul>

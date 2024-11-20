@@ -9,6 +9,7 @@ import { Button, TasksCard } from "@/app/_features";
 import { getAllTasks, getPendingTasks, getCompletedTasks } from "@/app/_lib";
 
 import styles from "./style.module.css";
+import LoadingPage from "./loading";
 
 const getFilterItems = () => {
   return {
@@ -89,6 +90,7 @@ export default function TasksQueryPage({ params }) {
               <p>No tasks to display</p>
             </div>
           )}
+          {!tasks && <LoadingPage />}
         </div>
 
         <div className={styles["page__btn_wrapper"]}>
