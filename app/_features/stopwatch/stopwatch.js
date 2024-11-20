@@ -13,6 +13,7 @@ const clearStopwatchLocals = () => {
   localStorage.removeItem("stopwatch");
   localStorage.removeItem("laps");
   localStorage.removeItem("lastStopwatchTime");
+  localStorage.removeItem("stopwatchIsRunning");
 };
 
 export function StopWatch() {
@@ -50,7 +51,9 @@ export function StopWatch() {
     // if localMillis only present then
     if (!localStorage.getItem("laps")) {
       setMillis(actualMillis);
-      setPlay(true);
+
+      // ensures that the stopwatch was not paused
+      setPlay(localStorage.getItem("stopwatchIsRunning") === "true");
       return;
     }
 
@@ -67,7 +70,7 @@ export function StopWatch() {
     ) {
       setMillis(actualMillis);
       setLaps(localLaps);
-      setPlay(true);
+      setPlay(localStorage.getItem("stopwatchIsRunning") === "true");
     } else {
       clearStopwatchLocals();
     }
@@ -102,9 +105,19 @@ export function StopWatch() {
     clearStopwatchLocals();
   };
 
+  const handleStart = () => {
+    localStorage.setItem("stopwatchIsRunning", true);
+    setPlay(true);
+  };
+
   const handleLap = () => {
     localStorage.setItem("laps", [...laps, millis]);
     setLaps((prev) => [...prev, millis]);
+  };
+
+  const handlePaused = () => {
+    localStorage.setItem("stopwatchIsRunning", false);
+    setPlay(false);
   };
 
   return (
@@ -115,7 +128,7 @@ export function StopWatch() {
 
       <div className={styles["stopwatch__btns"]}>
         {millis === 0 && (
-          <Button onClick={setPlay.bind(null, true)}>
+          <Button onClick={handleStart}>
             Start <Play />
           </Button>
         )}
@@ -124,14 +137,14 @@ export function StopWatch() {
             <Button onClick={handleLap}>
               Lap <Flag />
             </Button>
-            <Button onClick={setPlay.bind(null, false)}>
+            <Button onClick={handlePaused}>
               Pause <CirclePause />
             </Button>
           </>
         )}
         {millis !== 0 && !play && (
           <>
-            <Button onClick={setPlay.bind(null, true)}>
+            <Button onClick={handleStart}>
               Resume <Play />
             </Button>
             <Button onClick={handleStop}>
